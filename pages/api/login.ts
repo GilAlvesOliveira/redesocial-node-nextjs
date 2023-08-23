@@ -9,7 +9,7 @@ export default (
 
         if(login === 'admin@admin.com' && //este login e senha esta mocado apenas para fazer os testes.
         senha === "Admin@123"){
-            res.status(200).json({msg: 'Usuario autenticado com sucesso'});
+            res.status(200).json({msg: 'Usuario autenticado com sucesso'}); // aqui seria as msg de ero ou status
         }
         return res.status(400).json({erro: 'Usuario ou senha não encontrado'});
     }
