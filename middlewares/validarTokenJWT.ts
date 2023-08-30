@@ -5,7 +5,8 @@ import jwt, { JwtPayload } from 'jsonwebtoken';
 export const validartokenTWT = (handler: NextApiHandler) =>
      (req: NextApiRequest, res: NextApiResponse<RespostaPadraoMsg>) => {
 
-        const {MINHA_CHAVE_JWT} = process.env;          //validei a chave de acesso
+        try{
+            const {MINHA_CHAVE_JWT} = process.env;          //validei a chave de acesso
         if(!MINHA_CHAVE_JWT) {
             return res.status(500).json({erro: 'ENV chave JWT não informada na execução do processo'});
         }
@@ -35,6 +36,11 @@ export const validartokenTWT = (handler: NextApiHandler) =>
             }
 
             req.query.userId = decoded._id;
+        }
+
+        }catch(e) {
+            console.log(e);
+            return res.status(401).json({erro: 'Não foi possivel validar o token de acesso'})
         }
 
         return handler(req, res);
