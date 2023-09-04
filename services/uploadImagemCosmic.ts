@@ -1,52 +1,46 @@
 import multer from 'multer';
-import { createBucketClient } from 'cosmicjs/sdk'
+import { createBucketClient } from '@cosmicjs/sdk'
 
 const {
     BUCKET_SLOG,
     READ_KEY,
-    WHITE_KEY } = process.env;
+    WRITE_KEY } = process.env;
 
-    const bucketRedeSocial = createBucketClient({
+    const bucketRedeSocial = createBucketClient({    //aqui foi importado do cosmicjs/slk
         bucketSlug: BUCKET_SLOG as string,
         readKey: READ_KEY as string,
-        whiteKey: WHITE_KEY as string
+        writeKey: WRITE_KEY as string
     });
 
-    const storage = multer.memoryStorage();
+    const storage = multer.memoryStorage();           //multer vai gravar a imagem na memoria da aplicação so depois vai fazer o upload
 
-const upload = multer({ storage: storage });
+    const upload = multer({ storage: storage });      //função de upload de imagem
 
-const uploadImagemCosmic = async (req: any) => {
-  if (req?.file?.originalname) {
-    if (
-      !req.file.originalname.includes(".png") &&
-      !req.file.originalname.includes(".jpg") &&
-      !req.file.originalname.includes(".jpeg")
-    ) {
-      throw new Error("Extensão da imagem inválida");
-    }
-    const media_object = {
-      originalname: req.file.originalname,
-      buffer: req.file.buffer,
-    };
+    const uploadImagemCosmic = async (req: any) => {   //esta é a função de upload que vai ser async e vai ter uma requisição
+        if (req?.file?.originalname) {                  // vai checar se na requisição vai ter um arquivo e se este arquivo tem um nome
+       
+            const media_object = {                      // se a requisção tem um arquivo e se este arquivo tem um nome vou criar um objeto
+            originalname: req.file.originalname,
+            buffer: req.file.buffer,
+            };
 
-    if (req.url && req.url.includes("publicacao")) {
-      return await bucketRedeSocial.media.insertOne({
-        media: media_object,
-        folder: "publicacao",
-      });
-    } else if (req.url && (req.url.includes("usuario") || req.url.includes("cadastro"))) {
-      return await bucketRedeSocial.media.insertOne({
-        media: media_object,
-        folder: "avatar",
-      });
-    } else {
-      return await bucketRedeSocial.media.insertOne({
-        media: media_object,
-        folder: "stories",
-      });
-    }
-  }
-};
+                if (req.url && req.url.includes("publicacao")) {   // se a url for publicação...vou mandar para o  bucket de publicação
+                return await bucketRedeSocial.media.insertOne({
+                    media: media_object,
+                    folder: "Publicacao",
+                });
+                } else if (req.url && (req.url.includes("usuario") || req.url.includes("cadastro"))) { // se não for vou mandar para buckt de avatar
+                return await bucketRedeSocial.media.insertOne({
+                    media: media_object,
+                    folder: "Avatar",
+                });
+                } else {
+                return await bucketRedeSocial.media.insertOne({
+                    media: media_object,
+                    folder: "stories",
+                });
+                }
+            }
+            };
 
 export { upload, uploadImagemCosmic };
