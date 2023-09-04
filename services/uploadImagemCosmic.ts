@@ -27,7 +27,7 @@ const {
                 if (req.url && req.url.includes("publicacao")) {   // se a url for publicação...vou mandar para o  bucket de publicação
                 return await bucketRedeSocial.media.insertOne({
                     media: media_object,
-                    folder: "Publicacao",
+                    folder: "Publicacoes",
                 });
                 } else if (req.url && (req.url.includes("usuario") || req.url.includes("cadastro"))) { // se não for vou mandar para buckt de avatar
                 return await bucketRedeSocial.media.insertOne({
