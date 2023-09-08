@@ -19,6 +19,11 @@ const {
     const uploadImagemCosmic = async (req: any) => {   //esta é a função de upload que vai ser async e vai ter uma requisição
         if (req?.file?.originalname) {                  // vai checar se na requisição vai ter um arquivo e se este arquivo tem um nome
        
+            if(!req.file.originalname.includes('.png') &&
+            !req.file.originalname.includes('.jpg') &&
+            !req.file.originalname.includes('jpeg')) {
+                throw new Error('Extensão da imagem invalida');
+            }
             const media_object = {                      // se a requisção tem um arquivo e se este arquivo tem um nome vou criar um objeto
             originalname: req.file.originalname,
             buffer: req.file.buffer,
