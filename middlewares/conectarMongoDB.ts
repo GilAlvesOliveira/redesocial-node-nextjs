@@ -4,7 +4,7 @@ import type { RespostaPadraoMsg } from '../types/RespostaPadraoMsg';
 //para o middlewares tem que importa estes types para o funcionamento
 
 export const conectarMongoDB = (handler : NextApiHandler) => //aqui vai exportar esta variavel/função que quando for executada 
-    async (req: NextApiRequest, res: NextApiResponse<RespostaPadraoMsg>) => {             //endpoint recebe a requisição e processa a resposta ja o middlewares recebe um handler que recebe a função que tem um requeste e um response ai chama o endpoint se necessario for
+    async (req: NextApiRequest, res: NextApiResponse<RespostaPadraoMsg | any[]>) => {             //endpoint recebe a requisição e processa a resposta ja o middlewares recebe um handler que recebe a função que tem um requeste e um response ai chama o endpoint se necessario for
 
     //verificar se o banco ja esta conectado, se estiver seguir para o endpoint
     if(mongoose.connections[0].readyState) {                //lendo o codigo...mongoose voce esta com alguma conexao ai? entre couchetes esta zero mas na programação 0 é a primeira .. ou seja veja a primeira conexao ate pq pode ter varias e reastate significa se esta pronto
