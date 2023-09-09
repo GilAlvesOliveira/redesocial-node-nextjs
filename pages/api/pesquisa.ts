@@ -8,18 +8,29 @@ const pesquisaEndpoint = async (req: NextApiRequest, res: NextApiResponse<Respos
 
     try {
         if(req.method === 'GET') {
-            const {filtro} = req.query;
-            if(!filtro || filtro.length < 2) {
-                return res.status(400).json({erro: 'Favor informar pelo menos 2 caracteres na busca'});
+            if(req?.query?.id) {
+                const usuarioEncontrado = await UsuarioModel.findById(req?.query?.id);
+                if(!usuarioEncontrado) {
+                    return res.status(400).json({erro: 'Usuario não encontrado'});
+                }
+                usuarioEncontrado.senha = null;
+                return res.status(200).json(usuarioEncontrado);
+            } else {
+                const {filtro} = req?.query;
+                console.log(filtro);
+                if(!filtro || filtro.length < 2) {
+                    return res.status(400).json({erro: 'Favor informar pelo menos 2 caracteres na busca'});
+                }
+                
+                const usuariosEncontrados = await UsuarioModel.find({
+                    //  nome : {$regex : filtro, $options: 'i'}    aqui seria uma busca pelo nome e o regex pega qualquer parte do nome e o "i" ignora o case sensetive.
+                    $or: [
+                        {nome: {$regex: filtro, $options: 'i'}},
+                        {email: {$regex: filtro, $options: 'i'}}
+                    ] 
+                });
+                return res.status(200).json(usuariosEncontrados);
             }
-
-            const usuariosEncontrados = await UsuarioModel.find({
-     //           nome : {$regex : filtro, $options: 'i'}    aqui seria uma busca pelo nome e o regex pega qualquer parte do nome e o "i" ignora o case sensetive.
-                $or: [{nome: {$regex: filtro, $options: 'i'}},
-                    {email: {$regex: filtro, $options: 'i'}}]
-            });
-
-            return res.status(200).json(usuariosEncontrados);
         }
         return res.status(405).json({erro: 'Metodo informado não é valido'});
     } catch(e) {
