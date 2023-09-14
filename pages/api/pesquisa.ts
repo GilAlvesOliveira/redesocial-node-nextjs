@@ -16,7 +16,7 @@ const pesquisaEndpoint = async (req: NextApiRequest, res: NextApiResponse<Respos
                 usuarioEncontrado.senha = null;
                 return res.status(200).json(usuarioEncontrado);
             } else {
-                const {filtro} = req?.query;
+                const {filtro} = req.query;
                 console.log(filtro);
                 if(!filtro || filtro.length < 2) {
                     return res.status(400).json({erro: 'Favor informar pelo menos 2 caracteres na busca'});
@@ -29,6 +29,7 @@ const pesquisaEndpoint = async (req: NextApiRequest, res: NextApiResponse<Respos
                         {email: {$regex: filtro, $options: 'i'}}
                     ] 
                 });
+                console.log(usuariosEncontrados);
                 return res.status(200).json(usuariosEncontrados);
             }
         }
