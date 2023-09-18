@@ -1,0 +1,55 @@
+import type { NextApiRequest, NextApiResponse } from "next";
+import type { RespostaPadraoMsg } from "@/types/RespostaPadraoMsg";
+import { conectarMongoDB } from "@/middlewares/conectarMongoDB";
+import { validartokenJWT } from "@/middlewares/validarTokenJWT";
+import { UsuarioModel } from "@/models/UsuarioModel";
+import { SeguidorModel } from "@/models/SeguidorModel";
+
+
+const endpointSeguir = async (req: NextApiRequest, res: NextApiResponse<RespostaPadraoMsg>) => {
+    try {
+        if(req.method === 'PUT') {
+
+            const {userId, id} = req?.query;
+
+            const usuarioLogado = await UsuarioModel.findById(userId);
+            if(!usuarioLogado) {
+                return res.status(400).json({erro: 'usuario logado não encontrado.'});
+            }
+
+            const usuarioASerSeguido = await UsuarioModel.findById(id);
+            if(!usuarioASerSeguido) {
+                return res.status(400).json({erro: 'Usuario a ser seguido não encontrado.'});
+            }
+
+            const euJaSigoEsseUsuario = await SeguidorModel.find({usuarioId: usuarioLogado._id, usuarioSeguidorId: usuarioASerSeguido._id});
+            if(euJaSigoEsseUsuario && euJaSigoEsseUsuario.length > 0) {
+                euJaSigoEsseUsuario.forEach(async(e: any) => await SeguidorModel.findByIdAndDelete({_id: e._id}));
+                usuarioLogado.seguindo--;
+                await UsuarioModel.findByIdAndUpdate({_id: usuarioLogado._id}, usuarioLogado);
+                usuarioASerSeguido.seguindo--;
+                await UsuarioModel.findByIdAndUpdate({_id: usuarioASerSeguido._id}, usuarioASerSeguido);
+
+                return res.status(200).json({msg: 'Deixou de seguir o usuario com sucesso.'});
+            } else {
+                const seguidor = {
+                    usuarioId: usuarioLogado._id,
+                    usuarioSeguidoId: usuarioASerSeguido._id
+                };
+                await SeguidorModel.create(seguidor);
+
+                usuarioLogado.seguindo++;
+                await UsuarioModel.findByIdAndUpdate({_id: usuarioLogado._id}, usuarioLogado);
+
+                usuarioASerSeguido.seguidores++;
+                await UsuarioModel.findByIdAndUpdate({_id: usuarioASerSeguido._id}, usuarioASerSeguido);
+            }
+        }
+        return res.status(405).json({erro: 'Metodo informado não existe.'})
+    } catch(e) {
+        console.log(e);
+        return res.status(500).json({erro: 'Não foi possivel seguir/deseguir o usuario informado.'});
+    }
+}
+
+export default validartokenJWT(conectarMongoDB(endpointSeguir));

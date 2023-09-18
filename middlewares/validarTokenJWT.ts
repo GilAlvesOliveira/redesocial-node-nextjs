@@ -31,7 +31,7 @@ export const validartokenJWT = (handler: NextApiHandler) =>
                 return res.status(401).json({erro: 'Não foi possivel validar o token de acesso'});
             }
 
-            if(req.query) {       // se volta o objeto verifica se tem algum objeto na requisição
+            if(!req.query) {       // se volta o objeto verifica se tem algum objeto na requisição
                 req.query = {};
             }
 
