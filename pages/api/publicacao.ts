@@ -3,7 +3,7 @@ import type { RespostaPadraoMsg } from '../../types/RespostaPadraoMsg';
 import nc from 'next-connect';
 import { upload, uploadImagemCosmic} from '../../services/uploadImagemCosmic';
 import { conectarMongoDB } from '../../middlewares/conectarMongoDB';
-import { validartokenJWT } from '../../middlewares/validarTokenJWT';
+import { validarTokenJWT } from '../../middlewares/validarTokenJWT';
 import { PublicacaoModel } from '../../models/PublicacaoModel';
 import { UsuarioModel } from '../../models/UsuarioModel';
 
@@ -53,4 +53,4 @@ const handler = nc()
         }
     }
 
-    export default validartokenJWT(conectarMongoDB(handler));
+    export default validarTokenJWT(conectarMongoDB(handler));

@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import type { RespostaPadraoMsg } from "@/types/RespostaPadraoMsg";
-import { validartokenJWT } from "@/middlewares/validarTokenJWT";
+import { validarTokenJWT } from "@/middlewares/validarTokenJWT";
 import { conectarMongoDB } from "@/middlewares/conectarMongoDB";
 import { PublicacaoModel } from "@/models/PublicacaoModel";
 import { UsuarioModel } from "@/models/UsuarioModel";
@@ -38,4 +38,4 @@ const likeEndepoint = async (req: NextApiRequest, res: NextApiResponse<RespostaP
     }
 }
 
-export default validartokenJWT(conectarMongoDB(likeEndepoint));
+export default validarTokenJWT(conectarMongoDB(likeEndepoint));

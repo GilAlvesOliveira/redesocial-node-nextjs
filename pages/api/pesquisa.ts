@@ -1,7 +1,7 @@
 import type {NextApiRequest, NextApiResponse} from 'next';
 import type {RespostaPadraoMsg} from '../../types/RespostaPadraoMsg';
 import { conectarMongoDB } from '@/middlewares/conectarMongoDB';
-import { validartokenJWT } from '@/middlewares/validarTokenJWT';
+import { validarTokenJWT } from '@/middlewares/validarTokenJWT';
 import { UsuarioModel } from '@/models/UsuarioModel';
 
 const pesquisaEndpoint = async (req: NextApiRequest, res: NextApiResponse<RespostaPadraoMsg | any[]>) => {
@@ -40,4 +40,4 @@ const pesquisaEndpoint = async (req: NextApiRequest, res: NextApiResponse<Respos
     }
 }
 
-export default validartokenJWT(conectarMongoDB(pesquisaEndpoint));
+export default validarTokenJWT(conectarMongoDB(pesquisaEndpoint));

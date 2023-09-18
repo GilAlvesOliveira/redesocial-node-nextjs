@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import type { RespostaPadraoMsg } from "@/types/RespostaPadraoMsg";
-import { validartokenJWT } from "@/middlewares/validarTokenJWT";
+import { validarTokenJWT } from "@/middlewares/validarTokenJWT";
 import { conectarMongoDB } from "@/middlewares/conectarMongoDB";
 import { UsuarioModel } from "@/models/UsuarioModel";
 import { PublicacaoModel } from "@/models/PublicacaoModel";
@@ -25,4 +25,4 @@ const feedEndpoint = async (req: NextApiRequest, res: NextApiResponse<RespostaPa
     }
 }
 
-export default validartokenJWT(conectarMongoDB(feedEndpoint));
+export default validarTokenJWT(conectarMongoDB(feedEndpoint));
