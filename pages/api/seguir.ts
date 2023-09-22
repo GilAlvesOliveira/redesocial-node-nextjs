@@ -8,12 +8,12 @@ import { SeguidorModel } from "@/models/SeguidorModel";
 const seguirEndpoint = async (req: NextApiRequest, res: NextApiResponse<RespostaPadraoMsg>) => {// Declaração padrão conforme os outros endpoints
   try {
     if (req.method === "PUT") {                                  // Verifica se o método HTTP é PUT, caso não seja retorna um erro de método inválido
-      const {userID, id} = req?.query;                           // Usando um destructor pega na query da request (caso exista) as propriedades userID(usuário que vai seguir) e id (Usuário a ser seguido)
-      const usuarioLogado = await UsuarioModel.findById(userID); // Busca na DB o usuário que vai seguir pelo ID
+      const {userId, id} = req?.query;                           // Usando um destructor pega na query da request (caso exista) as propriedades userId(usuário que vai seguir) e id (Usuário a ser seguido)
+      const usuarioLogado = await UsuarioModel.findById(userId); // Busca na DB o usuário que vai seguir pelo ID
       if (!usuarioLogado) {                                      // Caso não retorne um usuário retorna um erro de usuário não encontrado
         return res.status(400).json({ erro: "Usuário Logado não encontrado" });
       }
-
+      
       const usuarioASerSeguido = await UsuarioModel.findById(id); // Busca na DB o usuário que vai ser seguido pelo id
       if (!usuarioASerSeguido) {                                  // Caso não retorne um usuário retorna um erro de usuário não encontrado
         return res.status(400).json({ erro: "Usuário a ser seguido não encontrado" });
