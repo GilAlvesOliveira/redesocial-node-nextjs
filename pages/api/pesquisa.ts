@@ -3,6 +3,7 @@ import type {RespostaPadraoMsg} from '../../types/RespostaPadraoMsg';
 import { conectarMongoDB } from '@/middlewares/conectarMongoDB';
 import { validarTokenJWT } from '@/middlewares/validarTokenJWT';
 import { UsuarioModel } from '@/models/UsuarioModel';
+import { SeguidorModel } from '@/models/SeguidorModel';
 
 const pesquisaEndpoint = async (req: NextApiRequest, res: NextApiResponse<RespostaPadraoMsg | any[]>) => {
 
@@ -13,6 +14,24 @@ const pesquisaEndpoint = async (req: NextApiRequest, res: NextApiResponse<Respos
                 if(!usuarioEncontrado) {
                     return res.status(400).json({erro: 'Usuario não encontrado'});
                 }
+
+                const user = {
+                    senha: null,
+                    segueEsseUsuario: false,
+                    nome: usuarioEncontrado.nome,
+                    email: usuarioEncontrado.email,
+                    _id: usuarioEncontrado._id,
+                    avatar: usuarioEncontrado.avatar,
+                    seguidores: usuarioEncontrado.seguidores,
+                    seguindo: usuarioEncontrado.seguindo,
+                    publicacoes: usuarioEncontrado.publicacoes,
+                } as any;
+
+                const segueEsseUsuario = await SeguidorModel.find({ usuarioId: req?.query?.userId, usuarioSeguidoId: usuarioEncontrado._id });
+                if (segueEsseUsuario && segueEsseUsuario.length > 0) {
+                    user.segueEsseUsuario = true;
+                }
+
                 usuarioEncontrado.senha = null;
                 return res.status(200).json(usuarioEncontrado);
             } else {
