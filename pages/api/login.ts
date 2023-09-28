@@ -5,6 +5,7 @@ import type { LoginResposta } from '../../types/LoginResposta';
 import md5 from 'md5';
 import { UsuarioModel } from '../../models/UsuarioModel';
 import jwt from 'jsonwebtoken';
+import { politicaCORS } from "@/middlewares/politicaCORS";
 
 const endpointLogin = async (                      //esta linha era... export default (
     req: NextApiRequest,
@@ -33,4 +34,4 @@ const endpointLogin = async (                      //esta linha era... export de
     return res.status(405).json({erro: 'Metodo informado não é válido!'});
 }
 
-export default conectarMongoDB(endpointLogin);   //esta linha não tinha ate fazer o middlewares e a função conectarMongoDB
+export default politicaCORS(conectarMongoDB(endpointLogin));   //esta linha não tinha ate fazer o middlewares e a função conectarMongoDB

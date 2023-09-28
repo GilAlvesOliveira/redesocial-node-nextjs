@@ -4,6 +4,7 @@ import { conectarMongoDB } from "@/middlewares/conectarMongoDB";
 import { validarTokenJWT } from "@/middlewares/validarTokenJWT";
 import { UsuarioModel } from "@/models/UsuarioModel";
 import { SeguidorModel } from "@/models/SeguidorModel";
+import { politicaCORS } from "@/middlewares/politicaCORS";
 
 const seguirEndpoint = async (req: NextApiRequest, res: NextApiResponse<RespostaPadraoMsg>) => {// Declaração padrão conforme os outros endpoints
   try {
@@ -54,4 +55,4 @@ const seguirEndpoint = async (req: NextApiRequest, res: NextApiResponse<Resposta
   }
 };
 
-export default validarTokenJWT(conectarMongoDB(seguirEndpoint)); // Exporta o endpoint de seguir passando pelos middlewares necessários
+export default politicaCORS(validarTokenJWT(conectarMongoDB(seguirEndpoint))); // Exporta o endpoint de seguir passando pelos middlewares necessários
