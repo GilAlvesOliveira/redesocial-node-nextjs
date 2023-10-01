@@ -9,7 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@cosmicjs/sdk": "^1.0.9",
+    "@cosmicjs/sdk": "^1.0.10",
     "@types/node": "20.5.1",
     "@types/react": "18.2.20",
     "@types/react-dom": "18.2.7",
