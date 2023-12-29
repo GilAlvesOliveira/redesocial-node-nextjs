@@ -32,9 +32,7 @@ const pesquisaEndpoint = async (req: NextApiRequest, res: NextApiResponse<Respos
                 if (segueEsseUsuario && segueEsseUsuario.length > 0) {
                     user.segueEsseUsuario = true;
                 }
-
-                usuarioEncontrado.senha = null;
-                return res.status(200).json(usuarioEncontrado);
+                return res.status(200).json(user);
             } else {
                 const {filtro} = req.query;
                 console.log(filtro);
