@@ -21,7 +21,7 @@ const {
        
             if(!req.file.originalname.includes('.png') &&
             !req.file.originalname.includes('.jpg') &&
-            !req.file.originalname.includes('jpeg')) {
+            !req.file.originalname.includes('.jpeg')) {
                 throw new Error('Extensão da imagem invalida');
             }
             const media_object = {                      // se a requisção tem um arquivo e se este arquivo tem um nome vou criar um objeto
