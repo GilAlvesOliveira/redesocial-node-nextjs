@@ -34,18 +34,13 @@ const {
                     media: media_object,
                     folder: "Publicacoes",
                 });
-                } else if (req.url && (req.url.includes("usuario") || req.url.includes("cadastro"))) { // se não for vou mandar para buckt de avatar
-                return await bucketRedeSocial.media.insertOne({
-                    media: media_object,
-                    folder: "Avatar",
-                });
                 } else {
-                return await bucketRedeSocial.media.insertOne({
-                    media: media_object,
-                    folder: "stories",
-                });
+                    return await bucketRedeSocial.media.insertOne({
+                      media: media_object,
+                      folder: "Avatar",
+                    });
+                  } 
                 }
-            }
-            };
+              };
 
 export { upload, uploadImagemCosmic };
