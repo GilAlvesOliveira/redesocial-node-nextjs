@@ -32,12 +32,12 @@ const {
                 if (req.url && req.url.includes("publicacao")) {   // se a url for publicação...vou mandar para o  bucket de publicação
                 return await bucketRedeSocial.media.insertOne({
                     media: media_object,
-                    folder: "Publicacoes",
+                    folder: "publicacoes",
                 });
                 } else {
                     return await bucketRedeSocial.media.insertOne({
                       media: media_object,
-                      folder: "Avatar",
+                      folder: "avatar",
                     });
                   } 
                 }
