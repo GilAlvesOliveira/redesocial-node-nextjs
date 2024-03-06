@@ -60,6 +60,10 @@ const handler = nc()
 
             if(publicacoesMinhas && publicacoesMinhas.length > 0) {
                 await PublicacaoModel.deleteOne({_id: postId});
+
+                usuario.publicacoes--;
+                await UsuarioModel.findByIdAndUpdate({_id: usuario._id}, usuario);
+
                 return res.status(200).json({msg: "Publicação deletada com sucesso"});
             }
     
