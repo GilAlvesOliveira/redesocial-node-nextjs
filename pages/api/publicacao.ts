@@ -51,15 +51,12 @@ const handler = nc()
     .delete(async (req: any, res: NextApiResponse<RespostaPadraoMsg>) => {
         try {
             const {postId, userId} = req.query;
-            console.log('postId', postId)
-            console.log('userId', userId)
             const usuario = await PublicacaoModel.findById(postId);
             if (!usuario) {
                 return res.status(400).json({erro: 'Usuario não encontrado'});
             }
 
             const publicacoesMinhas = await PublicacaoModel.find({_id: postId, idUsuario: userId});
-            console.log('Publicacoes minhas', publicacoesMinhas)
 
             if(publicacoesMinhas && publicacoesMinhas.length > 0) {
                 await PublicacaoModel.deleteOne({_id: postId});
