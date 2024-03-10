@@ -50,30 +50,33 @@ const handler = nc()
     })
     .delete(async (req: any, res: NextApiResponse<RespostaPadraoMsg>) => {
         try {
-            const {postId, userId} = req.query;
-            const usuario = await PublicacaoModel.findById(postId);
-            if (!usuario) {
-                return res.status(400).json({erro: 'Usuario não encontrado'});
-            }
-
-            const publicacoesMinhas = await PublicacaoModel.find({_id: postId, idUsuario: userId});
-
-            if(publicacoesMinhas && publicacoesMinhas.length > 0) {
-                await PublicacaoModel.deleteOne({_id: postId});
-
-                usuario.publicacoes--;
-                await UsuarioModel.findByIdAndUpdate({_id: usuario._id}, usuario);
-
-                return res.status(200).json({msg: "Publicação deletada com sucesso"});
-            }
-    
-            return res.status(400).json({msg: 'Publicação não encontrada.'});
-            
-        } catch(e){
-            console.log(e);
-            return res.status(400).json({erro: 'Erro ao deletar publicação'});
+          const { postId, userId } = req.query;
+          const publicacao = await PublicacaoModel.findById(postId);
+      
+          if (!publicacao) {
+            return res.status(400).json({ erro: 'Publicação não encontrada' });
+          }
+      
+          if (publicacao.idUsuario !== userId) {
+            return res.status(403).json({ erro: 'Operação não autorizada' });
+          }
+      
+          await PublicacaoModel.deleteOne({ _id: postId });
+      
+          const usuario = await UsuarioModel.findById(userId);
+          if (!usuario) {
+            return res.status(400).json({ erro: 'Usuário não encontrado' });
+          }
+      
+          usuario.publicacoes--;
+          await usuario.save();
+      
+          return res.status(200).json({ msg: 'Publicação deletada com sucesso' });
+        } catch (e) {
+          console.log(e);
+          return res.status(400).json({ erro: 'Erro ao deletar publicação' });
         }
-    });
+      });
 
     export const config = {
         api: {
