@@ -52,25 +52,25 @@ Instale o next-connect:
 npm install next-connect
 ```
 
-Instale o `cosmicjs`:
+5. Instale o `cosmicjs`:
 
 ```bash
 npm install cosmicjs
 ```
 
-5. Instale a versão específica do `next-connect` (0.13.0):
+6. Instale a versão específica do `next-connect` (0.13.0):
 
 ```bash
 npm install next-connect@0.13.0
 ```
 
-6. Instale o `nextjs-cors`:
+7. Instale o `nextjs-cors`:
 
 ```bash
 npm install nextjs-cors
 ```
 
-Isso é tudo! Não esqueça de configurar a `.env` do seu projeto!
+Isso é tudo! Não esqueça de configurar a `.env` do seu projeto com a `.env.exemple` de base.
 
 
 Apos todas as dependencias intaladas e `.env` configurada,inicie o projeto:
