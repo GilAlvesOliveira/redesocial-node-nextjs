@@ -11,59 +11,70 @@ Após clonar este repositório, siga estas etapas para instalar as dependências
 
 ```bash
 npm install mongoose
+```
 
-Instale o md5 e os tipos de definição TypeScript para ele:
+Instale o `md5` e os tipos de definição TypeScript para ele:
 
-bash
-
+```bash
 npm install md5
+```
 
+```bash
 npm install --save-dev @types/md5
+```
 
-Instale os tipos de definição TypeScript para jsonwebtoken, multer e next-connect:
+Instale os tipos de definição TypeScript para `jsonwebtoken`, `multer` e `next-connect`:
 
-bash
-
+```bash
 npm install --save-dev @types/jsonwebtoken
+```
 
+```bash
 npm install --save-dev @types/multer
+```
 
+```bash
 npm install --save-dev @types/next-connect
+```
 
-Instale o moment:
 
-bash
+Instale o `moment`:
 
+```bash
 npm install moment
+```
 
+```bash
 Instale o next-connect:
+```
 
-bash
-
+```bash
 npm install next-connect
+```
 
-Instale o cosmicjs:
+Instale o `cosmicjs`:
 
-bash
-
+```bash
 npm install cosmicjs
+```
 
-Instale a versão específica do next-connect (0.13.0):
+Instale a versão específica do `next-connect` (0.13.0):
 
-bash
-
+```bash
 npm install next-connect@0.13.0
+```
 
-Instale o nextjs-cors:
+Instale o `nextjs-cors`:
 
-bash
-
+```bash
 npm install nextjs-cors
+```
 
-Isso é tudo! Não esqueça de configurar a .env do seu projeto!
+Isso é tudo! Não esqueça de configurar a `.env` do seu projeto!
 
-Apos todas as dependencias intaladas e .env configurada inicio o projeto:
+Apos todas as dependencias intaladas e `.env` configurada inicio o projeto:
 
+```bash
 npm run dev
-
-...
+```
+Qualquer duvida pode entrar em contato email: `gilalves.oliveira@outlook.com`.
