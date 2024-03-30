@@ -23,20 +23,11 @@ npm install md5
 npm install --save-dev @types/md5
 ```
 
-3. Instale os tipos de definição TypeScript para `jsonwebtoken`, `multer` e `next-connect`:
+3. Instale TypeScript para `jsonwebtoken`:
 
 ```bash
 npm install --save-dev @types/jsonwebtoken
 ```
-
-```bash
-npm install --save-dev @types/multer
-```
-
-```bash
-npm install --save-dev @types/next-connect
-```
-
 
 4. Instale o `moment`:
 
@@ -44,27 +35,34 @@ npm install --save-dev @types/next-connect
 npm install moment
 ```
 
-```bash
-Instale o next-connect:
-```
+5. Instale o `next-connect` e `multer` e a versão especifica do `multer`:
 
 ```bash
 npm install next-connect
 ```
+```bash
+npm install multer
+```
+```bash
+npm install --save-dev @types/multer
+```
 
-5. Instale o `cosmicjs`:
+6. Instale o `cosmicjs`:
 
 ```bash
 npm install cosmicjs
 ```
+```bash
+npm install @cosmicjs/sdk
+```
 
-6. Instale a versão específica do `next-connect` (0.13.0):
+7. Instale a versão específica do `next-connect` (0.13.0):
 
 ```bash
 npm install next-connect@0.13.0
 ```
 
-7. Instale o `nextjs-cors`:
+8. Instale o `nextjs-cors`:
 
 ```bash
 npm install nextjs-cors
