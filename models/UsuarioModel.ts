@@ -2,6 +2,7 @@ import mongoose, { Schema } from 'mongoose';
 
 const UsuarioSchema = new Schema({
     nome: {type: String, required: true},
+    fcmToken: { type: String },
     email: {type: String, required: true},
     senha: {type: String, required: true},
     avatar: {type: String, required: false},
