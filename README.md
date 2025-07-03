@@ -1,80 +1,194 @@
+# Rede Social em Node.js com Next.js
 
-# Rede Social em Node.js
+Bem-vindo ao projeto **Rede Social**, uma aplicação web desenvolvida com [Next.js](https://nextjs.org/) para criar uma rede social moderna. Este repositório contém o backend e as configurações necessárias para rodar localmente ou em produção.
 
-Bem-vindo ao Meu Projeto! Este é um incrível projeto desenvolvido com [Next.js](https://nextjs.org/).
+## Descrição
 
-## Instalação
+Este projeto é uma API para uma rede social que utiliza Node.js, Next.js, Firebase e outras bibliotecas para gerenciar usuários, postagens e notificações push. O objetivo é fornecer uma base escalável para um aplicativo social.
 
-Após clonar este repositório, siga estas etapas para instalar as dependências necessárias:
+## Pré-requisitos
 
-1. Instale o `mongoose`:
+Antes de começar, certifique-se de ter instalado:
+
+- [Node.js](https://nodejs.org/) (versão 14.x ou superior recomendada)
+- [Git](https://git-scm.com/)# Rede Social em Node.js
+
+Bem-vindo ao projeto **Rede Social**, uma API desenvolvida com [Next.js](https://nextjs.org/) para criar uma rede social moderna. Este repositório contém o backend com suporte a usuários, postagens e notificações push via Firebase, hospedado na [Vercel](https://vercel.com/).
+
+---
+
+## 📌 Descrição
+
+Este é um backend para uma rede social que utiliza Node.js, Next.js, Firebase e outras bibliotecas para gerenciar funcionalidades como curtidas e notificações. O projeto está configurado para rodar localmente e em produção.
+
+---
+
+## ✅ Pré-requisitos
+
+Antes de começar, certifique-se de ter instalado:
+
+- [Node.js](https://nodejs.org/) (versão 14.x ou superior recomendada)
+- [Git](https://git-scm.com/)
+- Um editor de código (ex.: VS Code)
+- Acesso ao [Firebase Console](https://console.firebase.google.com/) para configurar credenciais
+- Conta na [Vercel](https://vercel.com/) para deploy (opcional)
+
+---
+
+## 📦 Instalação
+
+Siga estas etapas para configurar o projeto localmente:
+
+1. **Clone o repositório:**
+
+```bash
+git clone https://github.com/GilAlvesOliveira/redesocial-node-nextjs
+cd redesocial-node-nextjs
+```
+
+2. **Instale as dependências:**
 
 ```bash
 npm install mongoose
-```
-
-2. Instale o `md5` e os tipos de definição TypeScript para ele:
-
-```bash
 npm install md5
-```
-
-```bash
 npm install --save-dev @types/md5
-```
-
-3. Instale TypeScript para `jsonwebtoken`:
-
-```bash
 npm install --save-dev @types/jsonwebtoken
-```
-
-4. Instale o `moment`:
-
-```bash
 npm install moment
-```
-
-5. Instale o `next-connect` e `multer` e a versão especifica do `multer`:
-
-```bash
 npm install next-connect
-```
-```bash
 npm install multer
-```
-```bash
 npm install --save-dev @types/multer
-```
-
-6. Instale o `cosmicjs`:
-
-```bash
-npm install cosmicjs
-```
-```bash
-npm install @cosmicjs/sdk
-```
-
-7. Instale a versão específica do `next-connect` (0.13.0):
-
-```bash
+npm install cosmicjs @cosmicjs/sdk
 npm install next-connect@0.13.0
-```
-
-8. Instale o `nextjs-cors`:
-
-```bash
 npm install nextjs-cors
 ```
 
-Isso é tudo! Não esqueça de configurar a `.env` do seu projeto com a `.env.exemple` de base.
+3. **Configure o ambiente:**
 
+- Renomeie o arquivo `.env.example` para `.env` e preencha com suas credenciais.
+- No Firebase, crie uma conta de serviço e baixe o `service-account-key.json`. Adicione seu conteúdo como valor da variável `FIREBASE_SERVICE_ACCOUNT_KEY` no `.env`.
 
-Apos todas as dependencias intaladas e `.env` configurada,inicie o projeto:
+---
+
+## ⚙️ Configuração Adicional
+
+### 🔐 Criando o Arquivo de Exemplo
+
+Crie `service-account-key.json.example` com a seguinte estrutura:
+
+```json
+{
+  "type": "service_account",
+  "project_id": "seu-projeto-id",
+  "private_key_id": "sua-chave-privada-id",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nSUA_CHAVE_PRIVADA\n-----END PRIVATE KEY-----\n",
+  "client_email": "firebase-adminsdk@seu-projeto-id.iam.gserviceaccount.com",
+  "client_id": "seu-client-id",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk%40seu-projeto-id.iam.gserviceaccount.com"
+}
+```
+
+- Substitua os valores por placeholders.
+- Adicione `service-account-key.json` ao `.gitignore`.
+
+```bash
+git add service-account-key.json.example
+git commit -m "Adicionando service-account-key.json.example como exemplo"
+git push origin main
+```
+
+---
+
+## 🌱 Variáveis de Ambiente
+
+### Local
+
+Adicione ao `.env`:
+
+```env
+FIREBASE_SERVICE_ACCOUNT_KEY={"type":"service_account",...}
+```
+
+### Produção (Vercel)
+
+- Vá em **Vercel Dashboard** > Seu Projeto > **Settings** > **Environment Variables**
+- Adicione:
+
+```
+Name: FIREBASE_SERVICE_ACCOUNT_KEY
+Value: (JSON completo do service-account-key.json em uma única linha)
+Environment: Production
+```
+
+---
+
+## ▶️ Uso
+
+Após configurar tudo:
 
 ```bash
 npm run dev
 ```
 
-Qualquer dúvida pode entrar em contato via email: [gilalves.oliveira@outlook.com](mailto:gilalves.oliveira@outlook.com).
+O projeto estará disponível em: [http://localhost:3000](http://localhost:3000)  
+Exemplo de endpoint: `/api/like` (teste via Postman).
+
+---
+
+## 🚀 Deploy (Vercel)
+
+1. Conecte seu repositório ao [Vercel](https://vercel.com).
+2. Configure as variáveis de ambiente conforme descrito.
+3. Faça push:
+
+```bash
+git push origin main
+```
+
+A Vercel realizará o deploy automaticamente. Verifique em **Deployments**.
+
+---
+
+## 🤝 Contribuindo
+
+1. Faça um fork.
+2. Crie uma branch:
+
+```bash
+git checkout -b feature/nova-funcionalidade
+```
+
+3. Faça alterações e commit:
+
+```bash
+git commit -m "Adiciona nova funcionalidade"
+git push origin feature/nova-funcionalidade
+```
+
+4. Abra um Pull Request.
+
+---
+
+## 🐞 Reportando Problemas
+
+Achou um bug ou quer sugerir melhorias?  
+Abra uma issue com detalhes para análise.
+
+---
+
+## 📬 Contato
+
+Para dúvidas ou suporte:  
+📧 **gilalves.oliveira@outlook.com**
+
+---
+
+## 📄 Licença
+
+Adicione uma licença apropriada, por exemplo:
+
+**MIT License** – Veja o arquivo [LICENSE](./LICENSE) para mais detalhes.
+
+---
