@@ -184,11 +184,3 @@ Para dúvidas ou suporte:
 📧 **gilalves.oliveira@outlook.com**
 
 ---
-
-## 📄 Licença
-
-Adicione uma licença apropriada, por exemplo:
-
-**MIT License** – Veja o arquivo [LICENSE](./LICENSE) para mais detalhes.
-
----
